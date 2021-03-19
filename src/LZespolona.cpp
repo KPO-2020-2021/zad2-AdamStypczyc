@@ -94,7 +94,7 @@ void Wyswietl(LZespolona Skl1)
 {                                                             //wykorzystanie showpos mówiącego nam o znaku liczby, 
   cout<<"("<<Skl1.re<<showpos<<Skl1.im<<noshowpos<<"i)";      //ale trzeba go zamknąć bo działa globalnie, nie dajemy znaku końca linii bo będziemy pisać całe wyrażenia 
 }
-
+//wczytywanie zespolonej
 void Wczytaj(LZespolona &Skl1)
 {
   char znak;
@@ -116,6 +116,7 @@ void Wczytaj(LZespolona &Skl1)
     cerr<<"Błąd zły znak, skończ znakiem )";
   }
 }
+//operator porównania
 bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
 {
   if(abs(Skl1.re-Skl2.re)<=MIN_DIFF && abs(Skl1.im-Skl2.im)<=MIN_DIFF)
@@ -127,7 +128,11 @@ bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
     return false;
   }
 }
-
+/*************************
+ * przy przeciążeniu bitowym
+ * wzorowałem się na przeciążeniu pokazanym w trakcie 
+ * godzin projektowych
+ * */
 ostream &operator << (ostream &StrmWyj, LZespolona Skl1)
 {
   StrmWyj << "(" << Skl1.re << showpos << Skl1.im << noshowpos << "i)";

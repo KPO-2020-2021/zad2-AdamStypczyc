@@ -10,7 +10,8 @@
 *Moje wcześniejsze wyświetlanie   *
 *i wczytywanie,                   *
 *nowe wyświetlanie i wczytywanie  *
-*nie zostało przetestowane        *
+*zostało przetestowane            *
+*w pliku main                     *
 ***********************************
 */
 /*void Wyswietl(WyrazenieZesp  WyrZ)
@@ -55,6 +56,9 @@ void Wczytaj(WyrazenieZesp &WyrZ)
     }
     Wczytaj(WyrZ.Arg2);
 }*/
+//wczytywanie i wyświetlanie zrobione analogicznie 
+//do wczytywania i wyświetlania wyżej
+//to niżej wykorzytuje przeciążenia
 void Wyswietl(WyrazenieZesp  WyrZ)
 {
     cout << WyrZ.Arg1; 
