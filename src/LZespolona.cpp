@@ -189,3 +189,4 @@ istream &operator >> (istream &StrmWej, LZespolona &Skl1)
     } 
     return StrmWej;      
 }
+

@@ -53,6 +53,10 @@ int main(int argc, char **argv)
   Wyswietl(aaa);
   cout << "\n***** ***\n";
   /*********************************************************/
+  cin >> aaa;
+  cout << aaa;
+  cout << "\n***** ***\n";
+  /*********************************************************/
   if (argc < 2) {
     cout << endl;
     cout << " Brak opcji okreslajacej rodzaj testu." << endl;

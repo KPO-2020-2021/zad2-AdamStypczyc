@@ -122,3 +122,65 @@ void Wczytaj(WyrazenieZesp &WyrZ)
     }
     cin >> WyrZ.Arg2;
 }
+//Przeciążenia operatorów dla wyrażeń zespolonych wykonałem póżniej
+//Głupio było usuwać to co jest wyżej, dlatego zostawiłem
+//wątpię czy będę jeszcze używał
+ostream &operator << (ostream &StrmWyj, WyrazenieZesp Skl1)
+{
+    StrmWyj << Skl1.Arg1; 
+    switch (Skl1.Op)
+    {
+        case Op_Dodaj:
+        StrmWyj<<"+";
+        break;
+        case Op_Odejmij:
+        StrmWyj<<"-";
+        break;
+        case Op_Mnoz:
+        StrmWyj<<"*";
+        break;
+        case Op_Dziel:
+        StrmWyj<<"/";
+        break;
+    }
+    StrmWyj << Skl1.Arg2;
+    return StrmWyj;
+}
+istream &operator >> (istream &StrmWej, WyrazenieZesp &Skl1)
+{
+    char znak;
+    StrmWej >> Skl1.Arg1;
+    if (StrmWej.fail())
+    {
+        cerr << "Błąd!!!";
+        return StrmWej;
+    }
+    StrmWej >> znak;
+    if (StrmWej.fail())
+    {
+        cerr << "Błąd!!!";
+        return StrmWej;
+    }
+    switch (znak)
+    {
+        case '+':
+        Skl1.Op=Op_Dodaj;
+        break;
+        case '-':
+        Skl1.Op=Op_Odejmij;
+        break;
+        case '*':
+        Skl1.Op=Op_Mnoz;
+        break;
+        case '/':
+        Skl1.Op=Op_Dziel;
+        break;
+    }
+    StrmWej >> Skl1.Arg2;
+    if (StrmWej.fail())
+    {
+        cerr << "Błąd!!!";
+        return StrmWej;
+    }
+    return StrmWej;
+}
