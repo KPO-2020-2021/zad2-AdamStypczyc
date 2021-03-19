@@ -2,7 +2,14 @@
 #include "./doctest/doctest.h"
 #include "LZespolona.hh"
 #include "WyrazenieZesp.hh"
-
+/****************************************************
+ * testy wyświetlania i wczytywania
+ * liczby zespolonej i wyrażenia 
+ * są w main.cpp
+ * obliczania wyrażenia zepolonego też
+ * pokazały że funkcja działa
+ * 
+ * ***************************************************/
 TEST_CASE("Test LZespolona dzielenie przez skalar 1") {
     LZespolona x, y;
     double t = 2;

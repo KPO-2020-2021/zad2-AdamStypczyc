@@ -8,7 +8,9 @@
 
 /**********************************
 *Moje wcześniejsze wyświetlanie   *
-*i wczytywanie                    *
+*i wczytywanie,                   *
+*nowe wyświetlanie i wczytywanie  *
+*nie zostało przetestowane        *
 ***********************************
 */
 /*void Wyswietl(WyrazenieZesp  WyrZ)
