@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BazaTestu.hh"
+#include "Statystyki.hh"
 
 using namespace std;
 
@@ -9,8 +10,9 @@ using namespace std;
 int main(int argc, char **argv)
 {
   /*******************************************************/
-  LZespolona x,y,z;
-  WyrazenieZesp aaa;
+  LZespolona x,y,z, o1, o2, po1, po2;
+  WyrazenieZesp aaa,odp1,odp2;
+  Statystyka odpowiedzi;
   x.re=1;
   x.im=1;
   cout << x <<"\n";
@@ -57,6 +59,50 @@ int main(int argc, char **argv)
   cout << aaa;
   cout << "\n***** ***\n";
   /*********************************************************/
+  odp1.Arg1.re=1;
+  odp1.Arg1.im=-2;
+  odp1.Op=Op_Mnoz;
+  odp1.Arg2.re=2;
+  odp1.Arg2.im=3;
+  po1.re=8;
+  po1.im=-1;
+  cout << "Oblicz: " << odp1 << "\n";
+  cout << "Twoja odpowiedź to: ";
+  cin >> o1;
+  odpowiedzi.Odpowiedzi++;
+  if(o1==po1)
+  {
+    cout << "Gitara!!!\nDobra odpowiedź!!!";
+    odpowiedzi.Dobre++;
+  }
+  else
+  {
+    cout << "Źle!!!\nZła odpowiedź!!!\nPoprawna opowiedź to: "<< po1 << endl;
+    odpowiedzi.Zle++;
+  }
+  odp2.Arg1.re=3;
+  odp2.Arg1.im=4;
+  odp2.Op=Op_Dodaj;
+  odp2.Arg2.re=8;
+  odp2.Arg2.im=7;
+  po2.re=11;
+  po2.im=11;
+  cout << "Oblicz: " << odp2 << "\n";
+  cout << "Twoja odpowiedź to: ";
+  cin >> o2;
+  odpowiedzi.Odpowiedzi++;
+  if(o2==po2)
+  {
+    cout << "Gitara!!!\nDobra odpowiedź!!!";
+    odpowiedzi.Dobre++;
+  }
+  else
+  {
+    cout << "Źle!!!\nZła odpowiedź!!!\nPoprawna opowiedź to: "<< po2 << endl;
+    odpowiedzi.Zle++;
+  }
+  Procenty(odpowiedzi);
+  cout << "\n***** ***\n";
   if (argc < 2) {
     cout << endl;
     cout << " Brak opcji okreslajacej rodzaj testu." << endl;

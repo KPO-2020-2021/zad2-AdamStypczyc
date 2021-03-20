@@ -13,9 +13,9 @@ using namespace std;
 
 struct Statystyka
 {
-    int Odpowiedzi;
-    int Dobre;
-    int Zle;
+    int Odpowiedzi=0;
+    int Dobre=0;
+    int Zle=0;
 };
-
+void Procenty(Statystyka punkty);
 #endif //STATYSTYKI_HH
