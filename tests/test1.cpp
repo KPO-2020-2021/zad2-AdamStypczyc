@@ -100,6 +100,20 @@ TEST_CASE("test LZespolona Suma 7"){
     
     CHECK(x+y == z);
 }
+TEST_CASE("test LZespolona Suma 8"){
+    LZespolona x, y, z;
+
+    x.re = 6;
+    x.im = 6;
+
+    y.re = 0.001;
+    y.im = 0.001;
+
+    z.re = 6;
+    z.im = 6;
+    
+    CHECK(x+y != z);
+}
 TEST_CASE("test LZespolona Różnica 1"){
     LZespolona x, y, z;
 
@@ -197,4 +211,35 @@ TEST_CASE("test LZespolona Różnica 7"){
     z.im = 2;
     
     CHECK(x-y == z);
+}
+TEST_CASE("test wyświetlanie standard"){
+    LZespolona x;
+
+    x.re = 2.00;
+    x.im = 2.00;
+    ostringstream out;
+    out << x;
+    cout << out.str() << endl;
+    CHECK("(2+2i)" == out.str());
+}
+TEST_CASE("test wyświetlanie zaokrąglanie"){
+    LZespolona x;
+
+    x.re = 2.0/3.0;
+    x.im = 2.0/3.0;
+    zaokraglij(x);
+    ostringstream out;
+    out << x;
+    cout << out.str() << endl;
+    CHECK("(0.67+0.67i)" == out.str());
+}
+TEST_CASE("test wczytywanie standard"){
+    LZespolona x;
+
+    istringstream in("(10+10.101i)");
+    in >> x;
+    ostringstream out;
+    out << x;
+    
+    CHECK("(10+10.101i)"== out.str());
 }

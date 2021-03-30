@@ -10,6 +10,7 @@
  * Zwraca:
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
+//dodawanie zespolonych
 LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
 {
   LZespolona  Wynik;
@@ -18,6 +19,7 @@ LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
   Wynik.im = Skl1.im + Skl2.im;
   return Wynik;
 }
+//odejmowanie zespolonych
 LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2)
 {
   LZespolona  Wynik;
@@ -26,7 +28,7 @@ LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2)
   Wynik.im = Skl1.im - Skl2.im;
   return Wynik;
 }
-
+//mnozenie zespolonych
 LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
 {
   LZespolona  Wynik;
@@ -35,7 +37,7 @@ LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
   Wynik.im = Skl1.re * Skl2.im + Skl1.im * Skl2.re;
   return Wynik;
 }
-
+//mnozenie zespolonej razy skalar
 LZespolona  operator * (LZespolona  Skl1,  double  Skl2)
 {
   LZespolona  Wynik;
@@ -44,13 +46,14 @@ LZespolona  operator * (LZespolona  Skl1,  double  Skl2)
   Wynik.im = Skl1.im*Skl2;
   return Wynik;
 }
+//dzielenie zespolonej przez skalar
 
 LZespolona  operator / (LZespolona  Skl1,  double  Skl2)
 {
   LZespolona  Wynik;
   if(Skl2==0)
   {
-    cerr<<"Pamiętaj cholero nie dziel przez 0"<<endl;
+    throw "Pamiętaj cholero nie dziel przez 0";
   }
   else
   {
@@ -59,7 +62,29 @@ LZespolona  operator / (LZespolona  Skl1,  double  Skl2)
     return Wynik;
   }
 }
+//dzielenie skalaru przez zespolona
+LZespolona  operator / (double  Skl2, LZespolona  Skl1)
+{
+  LZespolona Licznik, Wynik;
+  if(Modul2(Skl1)==0)
+  {
+    throw "Pamiętaj cholero nie dziel przez 0";
+  }
+  Licznik=Skl2*Sprzezenie(Skl1);
+  Wynik=Licznik/Modul2(Skl1);
+  return Wynik;
 
+}
+//mnozenie zespolonej
+LZespolona  operator * (double  Skl2, LZespolona  Skl1)
+{
+  LZespolona  Wynik;
+
+  Wynik.re = Skl1.re*Skl2;
+  Wynik.im = Skl1.im*Skl2;
+  return Wynik;
+}
+//sprzezenia
 LZespolona Sprzezenie(LZespolona Skl1)
 {
   LZespolona  Wynik;
@@ -69,6 +94,7 @@ LZespolona Sprzezenie(LZespolona Skl1)
   return Wynik;
 }
 
+//moduł
 double Modul2(LZespolona Skl1)
 {
   double Wynik;
@@ -76,12 +102,13 @@ double Modul2(LZespolona Skl1)
   return Wynik;
 }
 
+//dzielenie zespolonej
 LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
 {
   LZespolona  Wynik;
   if(Modul2(Skl2)==0)
   {
-    cerr<<"Pamiętaj cholero nie dziel przez 0"<<endl;
+    throw "Pamiętaj cholero nie dziel przez 0";
   }
   else
   {
@@ -90,9 +117,17 @@ LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
   }
 }
 
+/**********************
+ * funkcje wczytywania 
+ * i wyświetlania liczby;
+ * zespolonej, funkcje wykonane przed 
+ * przeciążeniami bitowymi
+***********************/
+
+//funkcja wczytywania zespolonej
 void Wyswietl(LZespolona Skl1)
-{                                                             //wykorzystanie showpos mówiącego nam o znaku liczby, 
-  cout<<"("<<Skl1.re<<showpos<<Skl1.im<<noshowpos<<"i)";      //ale trzeba go zamknąć bo działa globalnie, nie dajemy znaku końca linii bo będziemy pisać całe wyrażenia 
+{                                                             
+  cout<<"("<<Skl1.re<<showpos<<Skl1.im<<noshowpos<<"i)";    
 }
 //wczytywanie zespolonej
 void Wczytaj(LZespolona &Skl1)
@@ -128,16 +163,38 @@ bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
     return false;
   }
 }
+//operator negacji
+bool operator != (LZespolona  Skl1,  LZespolona  Skl2)
+{
+  if(abs(Skl1.re-Skl2.re)<=MIN_DIFF && abs(Skl1.im-Skl2.im)<=MIN_DIFF)
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+}
 /*************************
  * przy przeciążeniu bitowym
  * wzorowałem się na przeciążeniu pokazanym w trakcie 
  * godzin projektowych
  * */
+
+/**********************
+ * przeciążenie operatora bitowego
+ * dla cout
+***********************/
 ostream &operator << (ostream &StrmWyj, LZespolona Skl1)
 {
   StrmWyj << "(" << Skl1.re << showpos << Skl1.im << noshowpos << "i)";
   return StrmWyj;
 }
+
+/**********************
+ * przeciążenie operatora bitowego
+ * dla cin
+***********************/
 
 istream &operator >> (istream &StrmWej, LZespolona &Skl1)
 {
@@ -189,4 +246,18 @@ istream &operator >> (istream &StrmWej, LZespolona &Skl1)
     } 
     return StrmWej;      
 }
-
+/**********************
+ * zaokrąglanie do
+ * dwóch miejsc po 
+ * przecinku
+***********************/
+LZespolona zaokraglij(LZespolona &x)
+{
+    x.re*=100;
+    x.re=round(x.re);
+    x.re/=100;
+    x.im*=100;
+    x.im=round(x.im);
+    x.im/=100;
+    return x;
+}

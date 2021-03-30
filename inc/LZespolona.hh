@@ -1,8 +1,10 @@
 #ifndef LZESPOLONA_HH
 #define LZESPOLONA_HH
 #include <iostream>
+#include <cmath>
 using namespace std;
 #define MIN_DIFF 0.0001
+
 /*!
  *  Plik zawiera definicje struktury LZesplona oraz zapowiedzi
  *  przeciazen operatorow arytmetycznych dzialajacych na tej 
@@ -28,12 +30,15 @@ LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator * (LZespolona  Skl1,  double  Skl2);
+LZespolona  operator * (double  Skl2, LZespolona  Skl1);
 LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2);
 LZespolona  operator / (LZespolona  Skl1,  double  Skl2);
+LZespolona  operator / (double  Skl2, LZespolona  Skl1);
 bool operator == (LZespolona  Skl1,  LZespolona  Skl2);
+bool operator != (LZespolona  Skl1,  LZespolona  Skl2);
 ostream &operator << (ostream &StrmWyj, LZespolona Skl1);
 istream &operator >> (istream &StrmWej, LZespolona &Skl1);
-
+LZespolona zaokraglij(LZespolona &x);
 LZespolona Sprzezenie(LZespolona Skl1);
 double Modul2(LZespolona Skl1);
 

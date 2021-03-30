@@ -10,7 +10,10 @@
  * Tu nalezy zdefiniowac funkcje, ktore definiuja model statystyki 
  */
 using namespace std;
-
+/*************
+ * struktura odpowiedzialna
+ * za statystyke
+ * **************/
 struct Statystyka
 {
     int Odpowiedzi=0;

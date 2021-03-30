@@ -2,14 +2,7 @@
 #include "./doctest/doctest.h"
 #include "LZespolona.hh"
 #include "WyrazenieZesp.hh"
-/****************************************************
- * testy wyświetlania i wczytywania
- * liczby zespolonej i wyrażenia 
- * są w main.cpp
- * obliczania wyrażenia zepolonego też
- * pokazały że funkcja działa
- * 
- * ***************************************************/
+
 TEST_CASE("Test LZespolona dzielenie przez skalar 1") {
     LZespolona x, y;
     double t = 2;
@@ -32,7 +25,6 @@ TEST_CASE("Test LZespolona dzielenie przez skalar 2") {
 
     y.re = 0.666666666666666667;
     y.im = 0.666666666666666667;
-   
     CHECK(x/t == y);
 }
 
@@ -80,6 +72,19 @@ TEST_CASE("Test LZespolona mnożenie przez skalar 3") {
     y.im = 0;
    
     CHECK(x*t == y);
+}
+
+TEST_CASE("Test LZespolona mnożenie przez skalar 4") {
+    LZespolona x, y;
+    double t = 0;
+    
+    x.re = 3;
+    x.im = 2;
+
+    y.re = 0;
+    y.im = 0;
+   
+    CHECK(t*x == y);//mnożenie w innej kolejności niż wcześniej
 }
 TEST_CASE("Test LZespolona mnożenie zespolonych 1") {
     LZespolona x, y, z;
@@ -193,6 +198,22 @@ TEST_CASE("Test LZespolona mnożenie zespolonych 8") {
 
     CHECK(x*y == z);
 }
+
+TEST_CASE("Test Skalar przez zespolona 1") {
+    double x;
+    LZespolona y,z;
+    
+    x = 8;
+
+    y.re = 4;
+    y.im = -4;
+   
+    z.re =1;
+    z.im =1;
+
+    CHECK(x/y == z);
+}
+
 TEST_CASE("Test LZespolona dzielenie zespolonych 1") {
     LZespolona x, y, z;
     
@@ -207,6 +228,7 @@ TEST_CASE("Test LZespolona dzielenie zespolonych 1") {
 
     CHECK(x/y == z);
 }
+
 TEST_CASE("Test LZespolona dzielenie zespolonych 2") {
     LZespolona x, y, z;
     
@@ -263,21 +285,3 @@ TEST_CASE("Test Modul2 1") {
     y=Modul2(x);
     CHECK(y==z);
 }
-/*test nie działa
-TEST_CASE("Test Oblicz 1") {
-    WyrazenieZesp x;
-    LZespolona Wynik,y;
-    x.Arg1.re=2;
-    x.Arg1.im=2;
-
-    x.Op=Op_Dodaj;
-
-    x.Arg2.re=4;
-    x.Arg2.im=4;
-    
-    Wynik=Oblicz(x);
-    y.re=6;
-    y.im=6;
-    CHECK(y==Wynik);
-}
-*/

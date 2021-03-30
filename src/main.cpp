@@ -9,100 +9,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-  /*******************************************************/
-  LZespolona x,y,z, o1, o2, po1, po2;
-  WyrazenieZesp aaa,odp1,odp2;
-  Statystyka odpowiedzi;
-  x.re=1;
-  x.im=1;
-  cout << x <<"\n";
-  y.re=1;
-  y.im=1;
-  aaa.Arg1=x;
-  aaa.Arg2=y;
-  aaa.Op=Op_Dodaj;
-  z=Oblicz(aaa);
-  cout << z<<"\n";//Wynik po dodawaniu liczb zespolonych i wyświetlanie liczby zespolonej
-  Wyswietl(aaa);
-  cout << "\n***** ***\n";
-  /*******************************************************/
-  aaa.Op=Op_Odejmij;
-  z=Oblicz(aaa);
-  cout << z<<"\n";//Wynik po odejmowaniu liczb zespolonych i wyświetlanie liczby zespolonej
-  Wyswietl(aaa);
-  cout << "\n***** ***\n";
-  /*******************************************************/
-  aaa.Op=Op_Mnoz;
-  y.re=3;
-  y.im=3;
-  z=Oblicz(aaa);
-  cout << z<<"\n";//Wynik po mnozeniu liczb zespolonych i wyświetlanie liczby zespolonej
-  Wyswietl(aaa);
-  cout << "\n***** ***\n";
-  /*******************************************************/
-  aaa.Op=Op_Dziel;
-  x.re=3;
-  x.im=3;
-  z=Oblicz(aaa);
-  cout << z<<"\n";//Wynik po dzieleniu liczb zespolonych i wyświetlanie liczby zespolonej
-  Wyswietl(aaa);
-  cout << "\n***** ***\n";
-  /*******************************************************/
-  cin >> x;//test wczytywania zespolonej
-  cout << x<<"\n***** ***\n";
-  /*******************************************************/
-  Wczytaj(aaa);//test wczytywania wyrażenia
-  Wyswietl(aaa);
-  cout << "\n***** ***\n";
-  /*********************************************************/
-  cin >> aaa;
-  cout << aaa;
-  cout << "\n***** ***\n";
-  /*********************************************************/
-  odp1.Arg1.re=1;
-  odp1.Arg1.im=-2;
-  odp1.Op=Op_Mnoz;
-  odp1.Arg2.re=2;
-  odp1.Arg2.im=3;
-  po1.re=8;
-  po1.im=-1;
-  cout << "Oblicz: " << odp1 << "\n";
-  cout << "Twoja odpowiedź to: ";
-  cin >> o1;
-  odpowiedzi.Odpowiedzi++;
-  if(o1==po1)
-  {
-    cout << "Gitara!!!\nDobra odpowiedź!!!";
-    odpowiedzi.Dobre++;
-  }
-  else
-  {
-    cout << "Źle!!!\nZła odpowiedź!!!\nPoprawna opowiedź to: "<< po1 << endl;
-    odpowiedzi.Zle++;
-  }
-  odp2.Arg1.re=3;
-  odp2.Arg1.im=4;
-  odp2.Op=Op_Dodaj;
-  odp2.Arg2.re=8;
-  odp2.Arg2.im=7;
-  po2.re=11;
-  po2.im=11;
-  cout << "Oblicz: " << odp2 << "\n";
-  cout << "Twoja odpowiedź to: ";
-  cin >> o2;
-  odpowiedzi.Odpowiedzi++;
-  if(o2==po2)
-  {
-    cout << "Gitara!!!\nDobra odpowiedź!!!";
-    odpowiedzi.Dobre++;
-  }
-  else
-  {
-    cout << "Źle!!!\nZła odpowiedź!!!\nPoprawna opowiedź to: "<< po2 << endl;
-    odpowiedzi.Zle++;
-  }
-  Procenty(odpowiedzi);
-  cout << "\n***** ***\n";
   if (argc < 2) {
     cout << endl;
     cout << " Brak opcji okreslajacej rodzaj testu." << endl;
@@ -121,19 +27,56 @@ int main(int argc, char **argv)
 
   
   cout << endl;
-  cout << " Start testu arytmetyki zespolonej: " << argv[1] << endl;
+  cout << "Start testu arytmetyki zespolonej: " << argv[1] << endl;
+  cout << "W razie ułamków zaokrąglaj wyniki do dwóch miejsc po przecinku." << endl;
   cout << endl;
 
-  WyrazenieZesp   WyrZ_PytanieTestowe;
-  
+  WyrazenieZesp WyrZ_PytanieTestowe;
+  LZespolona odpowiedz;       //odpowiedz użytkownika
+  Statystyka statystyka;      //statystyka
   while (PobierzNastpnePytanie(&BazaT,&WyrZ_PytanieTestowe)) {
-    cout << " Czesc rzeczywista pierwszego argumentu: ";
-    cout << WyrZ_PytanieTestowe.Arg1.re << endl;
+    cout << "Oblicz wyrażenie: ";
+    cout << WyrZ_PytanieTestowe<< endl;
+    int i=0;                          //i potrzebne do pętli odpowiadającej za zliczanie prób poprawnego wczytania Lzespoleonej
+    while(i < 3)                      //jeżeli użytkowanik poprawnie poda liczbę zespoloną to potem przerywamy pętlę
+    {
+      cout << "Twoja odpowiedź: ";
+      cin >> odpowiedz;
+      if(cin.good())
+      {
+        break;
+      }
+      else
+      {
+        cin.clear();                  //czyści flagę błędu
+        cin.ignore(1024,'\n');        //czyści całą linię do napotkania znaku końca linii
+        cout << "Zła forma liczby zespolonej" << endl;
+        cout << endl;
+        i++;                          //zwiększenie ilości zużytych prób
+      }
+    }
+    statystyka.Odpowiedzi++;          //zwiększenie ilości wszystkich odpowiedzi
+    if(odpowiedz==Oblicz(WyrZ_PytanieTestowe))
+    {
+      statystyka.Dobre++;             //w razie dobrej zwiększenie ilości dobrych odpowiedzi
+      cout << "Gitara!!!"<<endl;
+      cout << "Dobra odpowiedź!!!"<< endl;
+      cout << endl;
+    }
+    else
+    {
+      statystyka.Zle++;               //w razie złej zwiększenie ilości złych odpowiedzi
+      cout << ":("<<endl;
+      cout <<"Zla odpowiedź"<< endl;
+      cout <<"Poprawna odpowiedź to: "<< Oblicz(WyrZ_PytanieTestowe )<< endl;
+      cout << endl;
+    }
   }
+  Procenty(statystyka);               //podsumowanie odpowiedzi
 
   
   cout << endl;
-  cout << " Koniec testu" << endl;
+  cout << "Koniec testu" << endl;
   cout << endl;
 
 }

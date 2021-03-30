@@ -13,8 +13,11 @@
 *zostało przetestowane            *
 *w pliku main                     *
 ***********************************
-*/
-/*void Wyswietl(WyrazenieZesp  WyrZ)
+
+UPDATE
+aktualnie testowane w test 1
+
+void Wyswietl(WyrazenieZesp  WyrZ)
 {
     Wyswietl(WyrZ.Arg1);
     switch (WyrZ.Op)
@@ -80,7 +83,7 @@ void Wyswietl(WyrazenieZesp  WyrZ)
     cout << WyrZ.Arg2;
 }
 LZespolona Oblicz(WyrazenieZesp  WyrZ)
-//Oblicznie wyrażenia zespolonego
+//Oblicznie wyrażenia zespolonego i zaokrąglenie go do dwóch miejsc po przecinku
 {
     LZespolona Wynik;
     switch (WyrZ.Op)
@@ -98,6 +101,7 @@ LZespolona Oblicz(WyrazenieZesp  WyrZ)
         Wynik=WyrZ.Arg1/WyrZ.Arg2;
         break;
     }   
+    zaokraglij(Wynik);
     return Wynik; 
 }
 void Wczytaj(WyrazenieZesp &WyrZ)
@@ -125,6 +129,8 @@ void Wczytaj(WyrazenieZesp &WyrZ)
 //Przeciążenia operatorów dla wyrażeń zespolonych wykonałem póżniej
 //Głupio było usuwać to co jest wyżej, dlatego zostawiłem
 //wątpię czy będę jeszcze używał
+
+//przeciążenie dla cout
 ostream &operator << (ostream &StrmWyj, WyrazenieZesp Skl1)
 {
     StrmWyj << Skl1.Arg1; 
@@ -146,6 +152,8 @@ ostream &operator << (ostream &StrmWyj, WyrazenieZesp Skl1)
     StrmWyj << Skl1.Arg2;
     return StrmWyj;
 }
+
+//przeciążenie dla cin
 istream &operator >> (istream &StrmWej, WyrazenieZesp &Skl1)
 {
     char znak;
