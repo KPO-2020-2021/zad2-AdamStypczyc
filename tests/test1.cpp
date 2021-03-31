@@ -227,7 +227,7 @@ TEST_CASE("test wyświetlanie zaokrąglanie"){
 
     x.re = 2.0/3.0;
     x.im = 2.0/3.0;
-    zaokraglij(x);
+    x.zaokraglij();
     ostringstream out;
     out << x;
     cout << out.str() << endl;
@@ -242,4 +242,72 @@ TEST_CASE("test wczytywanie standard"){
     out << x;
     
     CHECK("(10+10.101i)"== out.str());
+}
+TEST_CASE("test += 1"){
+    LZespolona x,y,z;
+    x.re=1;
+    x.im=1;
+    y.re=2;
+    y.im=2;
+    z.re=3;
+    z.im=3;
+    x+=y;
+    CHECK(x==z);
+}
+TEST_CASE("test += 2"){
+    LZespolona x,y,z;
+    x.re=2;
+    x.im=12;
+    y.re=23;
+    y.im=-21;
+    z.re=25;
+    z.im=-9;
+    x+=y;
+    CHECK(x==z);
+}
+TEST_CASE("test += 3"){
+    LZespolona x,y,z;
+    x.re=4;
+    x.im=8;
+    y.re=8;
+    y.im=-12;
+    z.re=12;
+    z.im=-4;
+    x+=y;
+    CHECK(x==z);
+}
+TEST_CASE("test += 4"){
+    LZespolona x,y,z;
+    x.re=10;
+    x.im=54;
+    y.re=11;
+    y.im=-17;
+    z.re=21;
+    z.im=37;
+    x+=y;
+    CHECK(x==z);
+}
+
+TEST_CASE("test argument"){
+    LZespolona x,y,z,a,b;
+    x.re=5;
+    x.im=2;
+
+    y.re=0;
+    y.im=0;
+    
+    z.re=1;
+    z.im=1;
+    
+    a.re=0;
+    a.im=-67;
+    
+    b.re=8;
+    b.im=-6;
+    
+    x.arg();
+    y.arg();
+    z.arg();
+    a.arg();
+    b.arg();
 }

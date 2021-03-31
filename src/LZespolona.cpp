@@ -11,34 +11,43 @@
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
 //dodawanie zespolonych
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator + (LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re + Skl2.re;
-  Wynik.im = Skl1.im + Skl2.im;
+  Wynik.re = this->re + Skl2.re;
+  Wynik.im = this->im + Skl2.im;
   return Wynik;
 }
 //odejmowanie zespolonych
-LZespolona  operator - (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator - (LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re - Skl2.re;
-  Wynik.im = Skl1.im - Skl2.im;
+  Wynik.re = this->re - Skl2.re;
+  Wynik.im = this->im - Skl2.im;
   return Wynik;
 }
 //mnozenie zespolonych
-LZespolona  operator * (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona LZespolona::operator * (LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
-  Wynik.re = Skl1.re * Skl2.re - Skl1.im * Skl2.im;
-  Wynik.im = Skl1.re * Skl2.im + Skl1.im * Skl2.re;
+  Wynik.re = this->re * Skl2.re - this->im * Skl2.im;
+  Wynik.im = this->re * Skl2.im + this->im * Skl2.re;
   return Wynik;
 }
 //mnozenie zespolonej razy skalar
-LZespolona  operator * (LZespolona  Skl1,  double  Skl2)
+LZespolona LZespolona::operator * (double  Skl2)const
+{
+  LZespolona  Wynik;
+
+  Wynik.re = this->re*Skl2;
+  Wynik.im = this->im*Skl2;
+  return Wynik;
+}
+//mnozenie zespolonej
+LZespolona operator * (double  Skl2, const LZespolona Skl1)
 {
   LZespolona  Wynik;
 
@@ -48,7 +57,7 @@ LZespolona  operator * (LZespolona  Skl1,  double  Skl2)
 }
 //dzielenie zespolonej przez skalar
 
-LZespolona  operator / (LZespolona  Skl1,  double  Skl2)
+LZespolona LZespolona::operator / (double  Skl2)
 {
   LZespolona  Wynik;
   if(Skl2==0)
@@ -57,8 +66,23 @@ LZespolona  operator / (LZespolona  Skl1,  double  Skl2)
   }
   else
   {
-    Wynik.re = Skl1.re/Skl2;
-    Wynik.im = Skl1.im/Skl2;
+    Wynik.re = this->re/Skl2;
+    Wynik.im = this->im/Skl2;
+    return Wynik;
+  }
+}
+//dzielenie zespolonej
+LZespolona LZespolona::operator / (LZespolona  Skl2)const
+{
+  LZespolona  Wynik;
+  if(Skl2.Modul2()==0)
+  {
+    throw "Pamiętaj cholero nie dziel przez 0";
+  }
+  else
+  {
+    Wynik.re = (this->re*Skl2.re+this->im*Skl2.im)/Skl2.Modul2();
+    Wynik.im = (this->im*Skl2.re-this->re*Skl2.im)/Skl2.Modul2();
     return Wynik;
   }
 }
@@ -66,56 +90,34 @@ LZespolona  operator / (LZespolona  Skl1,  double  Skl2)
 LZespolona  operator / (double  Skl2, LZespolona  Skl1)
 {
   LZespolona Licznik, Wynik;
-  if(Modul2(Skl1)==0)
+  if(Skl1.Modul2()==0)
   {
     throw "Pamiętaj cholero nie dziel przez 0";
   }
-  Licznik=Skl2*Sprzezenie(Skl1);
-  Wynik=Licznik/Modul2(Skl1);
+  Licznik=Skl2*Skl1.Sprzezenie();
+  Wynik=Licznik/Skl1.Modul2();
   return Wynik;
 
 }
-//mnozenie zespolonej
-LZespolona  operator * (double  Skl2, LZespolona  Skl1)
-{
-  LZespolona  Wynik;
 
-  Wynik.re = Skl1.re*Skl2;
-  Wynik.im = Skl1.im*Skl2;
-  return Wynik;
-}
 //sprzezenia
-LZespolona Sprzezenie(LZespolona Skl1)
+LZespolona LZespolona::Sprzezenie()
 {
-  LZespolona  Wynik;
-
-  Wynik.re = Skl1.re;
-  Wynik.im = -Skl1.im;
+  LZespolona Wynik;
+  Wynik.re = this->re;
+  Wynik.im = -this->im;
   return Wynik;
 }
 
 //moduł
-double Modul2(LZespolona Skl1)
+double LZespolona::Modul2()
 {
   double Wynik;
-  Wynik = Skl1.re*Skl1.re + Skl1.im*Skl1.im;
+  Wynik = this->re*this->re + this->im*this->im;
   return Wynik;
 }
 
-//dzielenie zespolonej
-LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
-{
-  LZespolona  Wynik;
-  if(Modul2(Skl2)==0)
-  {
-    throw "Pamiętaj cholero nie dziel przez 0";
-  }
-  else
-  {
-    Wynik = Skl1*Sprzezenie(Skl2)/Modul2(Skl2);
-    return Wynik;
-  }
-}
+
 
 /**********************
  * funkcje wczytywania 
@@ -125,12 +127,12 @@ LZespolona  operator / (LZespolona  Skl1,  LZespolona  Skl2)
 ***********************/
 
 //funkcja wczytywania zespolonej
-void Wyswietl(LZespolona Skl1)
+void LZespolona::Wyswietl()
 {                                                             
-  cout<<"("<<Skl1.re<<showpos<<Skl1.im<<noshowpos<<"i)";    
+  cout<<"("<<this->re<<showpos<<this->im<<noshowpos<<"i)";    
 }
 //wczytywanie zespolonej
-void Wczytaj(LZespolona &Skl1)
+void LZespolona::Wczytaj()
 {
   char znak;
   cin>>znak;
@@ -138,8 +140,8 @@ void Wczytaj(LZespolona &Skl1)
   {
     cerr<<"Błąd zły znak, zacznij od (";
   }
-  cin>>Skl1.re;
-  cin>>Skl1.im;
+  cin>>this->re;
+  cin>>this->im;
   cin>>znak;
   if(znak!='i')
   {
@@ -152,9 +154,9 @@ void Wczytaj(LZespolona &Skl1)
   }
 }
 //operator porównania
-bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
+bool LZespolona::operator == (const LZespolona  Skl2)const
 {
-  if(abs(Skl1.re-Skl2.re)<=MIN_DIFF && abs(Skl1.im-Skl2.im)<=MIN_DIFF)
+  if(abs(this->re-Skl2.re)<=MIN_DIFF && abs(this->im-Skl2.im)<=MIN_DIFF)
   {
     return true;
   }
@@ -164,9 +166,9 @@ bool operator == (LZespolona  Skl1,  LZespolona  Skl2)
   }
 }
 //operator negacji
-bool operator != (LZespolona  Skl1,  LZespolona  Skl2)
+bool LZespolona::operator != (const LZespolona  Skl2)const
 {
-  if(abs(Skl1.re-Skl2.re)<=MIN_DIFF && abs(Skl1.im-Skl2.im)<=MIN_DIFF)
+  if(abs(this->re-Skl2.re)<=MIN_DIFF && abs(this->im-Skl2.im)<=MIN_DIFF)
   {
     return false;
   }
@@ -251,13 +253,69 @@ istream &operator >> (istream &StrmWej, LZespolona &Skl1)
  * dwóch miejsc po 
  * przecinku
 ***********************/
-LZespolona zaokraglij(LZespolona &x)
+LZespolona LZespolona::zaokraglij()
 {
-    x.re*=100;
-    x.re=round(x.re);
-    x.re/=100;
-    x.im*=100;
-    x.im=round(x.im);
-    x.im/=100;
-    return x;
+    this->re*=100;
+    this->re=round(this->re);
+    this->re/=100;
+    this->im*=100;
+    this->im=round(this->im);
+    this->im/=100;
+    return *this;
+}
+LZespolona LZespolona::operator +=(LZespolona const &Skl2)
+{
+
+  *this=*this+Skl2;
+  return *this;
+}
+LZespolona LZespolona::operator /=(LZespolona &Skl2)
+{
+  double y;
+  y=Skl2.Modul2();
+  if(y==0)
+  {
+    throw"Pamiętaj cholero nie dziel przez 0";
+  }
+  else
+  {
+  *this=*this/Skl2;
+  }
+  return *this;
+}
+double LZespolona::arg()
+{
+  double radian, kat;
+  if(this->re>0)
+  {
+    radian=atan2(this->im,this->re);
+    kat=radian*180/PI;
+  }
+  else if(this->re<0)
+  {
+    radian=atan2(this->im,this->re)+PI;
+    kat=radian*180/PI;
+  }
+  else
+  {
+    if(this->im>0)
+    {
+      radian=0.5*PI;
+      kat=radian*180/PI;
+    }
+    else if(this->im<0)
+    {
+      radian=-0.5*PI;
+      kat=radian*180/PI;
+    }
+    else
+    {
+      radian=0;
+      kat=0;
+    }
+  }
+  cout << "Argument liczby zespolonej wynosi: "<<endl;
+  cout << "W radianach: "<<radian<<endl;
+  cout << "W stopniach: "<<kat<<endl;
+  cout << endl;
 }

@@ -56,7 +56,7 @@ int main(int argc, char **argv)
       }
     }
     statystyka.Odpowiedzi++;          //zwiększenie ilości wszystkich odpowiedzi
-    if(odpowiedz==Oblicz(WyrZ_PytanieTestowe))
+    if(odpowiedz==WyrZ_PytanieTestowe.Oblicz())
     {
       statystyka.Dobre++;             //w razie dobrej zwiększenie ilości dobrych odpowiedzi
       cout << "Gitara!!!"<<endl;
@@ -68,11 +68,11 @@ int main(int argc, char **argv)
       statystyka.Zle++;               //w razie złej zwiększenie ilości złych odpowiedzi
       cout << ":("<<endl;
       cout <<"Zla odpowiedź"<< endl;
-      cout <<"Poprawna odpowiedź to: "<< Oblicz(WyrZ_PytanieTestowe )<< endl;
+      cout <<"Poprawna odpowiedź to: "<< WyrZ_PytanieTestowe.Oblicz()<< endl;
       cout << endl;
     }
   }
-  Procenty(statystyka);               //podsumowanie odpowiedzi
+  statystyka.Procenty();               //podsumowanie odpowiedzi
 
   
   cout << endl;

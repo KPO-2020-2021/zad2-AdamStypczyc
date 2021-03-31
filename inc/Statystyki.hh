@@ -19,6 +19,6 @@ struct Statystyka
     int Odpowiedzi=0;
     int Dobre=0;
     int Zle=0;
+    void Procenty();
 };
-void Procenty(Statystyka punkty);
 #endif //STATYSTYKI_HH

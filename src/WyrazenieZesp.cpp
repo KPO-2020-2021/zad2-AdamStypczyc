@@ -62,10 +62,10 @@ void Wczytaj(WyrazenieZesp &WyrZ)
 //wczytywanie i wyświetlanie zrobione analogicznie 
 //do wczytywania i wyświetlania wyżej
 //to niżej wykorzytuje przeciążenia
-void Wyswietl(WyrazenieZesp  WyrZ)
+void WyrazenieZesp::Wyswietl()
 {
-    cout << WyrZ.Arg1; 
-    switch (WyrZ.Op)
+    cout << this->Arg1; 
+    switch (this->Op)
     {
         case Op_Dodaj:
         cout<<"+";
@@ -80,51 +80,51 @@ void Wyswietl(WyrazenieZesp  WyrZ)
         cout<<"/";
         break;
     }
-    cout << WyrZ.Arg2;
+    cout << this->Arg2;
 }
-LZespolona Oblicz(WyrazenieZesp  WyrZ)
+LZespolona WyrazenieZesp::Oblicz()
 //Oblicznie wyrażenia zespolonego i zaokrąglenie go do dwóch miejsc po przecinku
 {
     LZespolona Wynik;
-    switch (WyrZ.Op)
+    switch (this->Op)
     {
         case Op_Dodaj:
-        Wynik=WyrZ.Arg1+WyrZ.Arg2;
+        Wynik=this->Arg1+this->Arg2;
         break;
         case Op_Odejmij:
-        Wynik=WyrZ.Arg1-WyrZ.Arg2;
+        Wynik=this->Arg1-this->Arg2;
         break;
         case Op_Mnoz:
-        Wynik=WyrZ.Arg1*WyrZ.Arg2;
+        Wynik=this->Arg1*this->Arg2;
         break;
         case Op_Dziel:
-        Wynik=WyrZ.Arg1/WyrZ.Arg2;
+        Wynik=this->Arg1/this->Arg2;
         break;
     }   
-    zaokraglij(Wynik);
+    Wynik.zaokraglij();
     return Wynik; 
 }
-void Wczytaj(WyrazenieZesp &WyrZ)
+void WyrazenieZesp::Wczytaj()
 {
     char znak;
-    cin >> WyrZ.Arg1;
+    cin >> this->Arg1;
     cin>>znak;
     switch (znak)
     {
         case '+':
-        WyrZ.Op=Op_Dodaj;
+        this->Op=Op_Dodaj;
         break;
         case '-':
-        WyrZ.Op=Op_Odejmij;
+        this->Op=Op_Odejmij;
         break;
         case '*':
-        WyrZ.Op=Op_Mnoz;
+        this->Op=Op_Mnoz;
         break;
         case '/':
-        WyrZ.Op=Op_Dziel;
+        this->Op=Op_Dziel;
         break;
     }
-    cin >> WyrZ.Arg2;
+    cin >> this->Arg2;
 }
 //Przeciążenia operatorów dla wyrażeń zespolonych wykonałem póżniej
 //Głupio było usuwać to co jest wyżej, dlatego zostawiłem
